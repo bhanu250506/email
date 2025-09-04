@@ -1,4 +1,4 @@
-const API_BASE_URL = 'https://email-backend-1-lst5.onrender.com/api/v1';
+const API_BASE_URL = 'https://email-backend-rtn0.onrender.com/api/v1';
 const api = {
   async request(endpoint, options = {}) {
     const url = `${API_BASE_URL}${endpoint}`;

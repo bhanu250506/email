@@ -9,24 +9,42 @@ const Sidebar = ({ activeRoute, setActiveRoute }) => {
   ];
 
   return (
-    <aside className="w-16 md:w-64 bg-gray-800 text-white flex-col hidden sm:flex transition-all duration-300">
-      <div className="h-16 flex items-center justify-center md:justify-start md:px-6 border-b border-gray-700">
-        <Send className="w-8 h-8 text-indigo-400" />
-        <span className="hidden md:inline ml-3 text-xl font-bold">AutoSender</span>
+    <aside
+      className="w-16 md:w-64 hidden sm:flex flex-col
+                 bg-gradient-to-b from-black via-gray-900 to-green-950
+                 text-green-300 border-r border-green-500/20
+                 shadow-lg shadow-green-500/20 transition-all duration-300"
+    >
+      {/* Logo / Branding */}
+      <div className="h-16 flex items-center justify-center md:justify-start md:px-6 border-b border-green-500/20">
+        <Send className="w-8 h-8 text-green-400 drop-shadow-glow" />
+        <span className="hidden md:inline ml-3 text-xl font-bold text-green-300 tracking-wide">
+          AutoSender
+        </span>
       </div>
+
+      {/* Nav Items */}
       <nav className="flex-grow mt-4">
-        {navItems.map(item => (
+        {navItems.map((item) => (
           <a
             key={item.id}
             href={`#${item.id}`}
-            onClick={(e) => { e.preventDefault(); setActiveRoute(item.id); }}
-            className={`flex items-center justify-center md:justify-start py-3 px-5 my-1 transition-colors duration-200 ${
-              activeRoute === item.id
-                ? 'bg-indigo-600 text-white'
-                : 'text-gray-400 hover:bg-gray-700 hover:text-white'
-            }`}
+            onClick={(e) => {
+              e.preventDefault();
+              setActiveRoute(item.id);
+            }}
+            className={`flex items-center justify-center md:justify-start py-3 px-5 my-1 rounded-lg cursor-pointer transition-all duration-200
+              ${
+                activeRoute === item.id
+                  ? 'bg-green-600/90 text-black font-semibold shadow-md shadow-green-500/40'
+                  : 'text-green-300 hover:bg-green-700/30 hover:text-green-100'
+              }`}
           >
-            <item.icon className="w-6 h-6" />
+            <item.icon
+              className={`w-6 h-6 ${
+                activeRoute === item.id ? 'text-black' : 'text-green-400'
+              }`}
+            />
             <span className="hidden md:inline ml-4">{item.label}</span>
           </a>
         ))}

@@ -24,12 +24,12 @@ const HistoryPage = () => {
   if (loading)
     return (
       <div className="p-12 flex justify-center">
-        <LoaderCircle className="w-10 h-10 text-indigo-600 animate-spin" />
+        <LoaderCircle className="w-10 h-10 text-green-400 animate-spin" />
       </div>
     );
 
   if (error)
-    return <div className="p-8 text-red-500 font-medium">{error}</div>;
+    return <div className="p-8 text-red-400 font-medium">{error}</div>;
 
   // 🔹 function to render status nicely
   const renderStatus = (status) => {
@@ -37,20 +37,20 @@ const HistoryPage = () => {
       case 'success':
       case 'Sent':
         return (
-          <span className="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-            ✅ Email Sent Successfully
+          <span className="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-900/40 text-green-300 border border-green-500/30">
+            ✅ Email Sent
           </span>
         );
       case 'failed':
       case 'error':
         return (
-          <span className="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
-            ❌ Failed to Send
+          <span className="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-900/40 text-red-300 border border-red-500/30">
+            ❌ Failed
           </span>
         );
       default:
         return (
-          <span className="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-100 text-gray-800">
+          <span className="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-800 text-gray-300">
             ⏳ {status}
           </span>
         );
@@ -58,38 +58,38 @@ const HistoryPage = () => {
   };
 
   return (
-    <div className="p-6 md:p-10 space-y-8 bg-gradient-to-br from-indigo-50 to-white min-h-screen">
+    <div className="p-6 md:p-10 space-y-8 min-h-screen bg-gradient-to-br from-black via-gray-900 to-green-950">
       {/* Header */}
       <div className="flex flex-col md:flex-row justify-between md:items-center gap-4">
-        <h1 className="text-4xl font-extrabold text-gray-800 tracking-tight">
+        <h1 className="text-4xl font-extrabold text-green-400 tracking-tight">
           📊 Application History
         </h1>
-        <span className="text-gray-600 text-sm md:text-base">
+        <span className="text-gray-400 text-sm md:text-base">
           Track your past job applications
         </span>
       </div>
 
       {/* History Table */}
-      <div className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden transition hover:shadow-xl">
+      <div className="backdrop-blur-md bg-white/5 rounded-2xl shadow-2xl border border-green-500/20 overflow-hidden transition hover:shadow-green-500/30">
         <div className="overflow-x-auto">
-          <table className="min-w-full divide-y divide-gray-200 text-sm">
-            <thead className="bg-gray-100">
+          <table className="min-w-full divide-y divide-gray-700 text-sm text-gray-300">
+            <thead className="bg-gradient-to-r from-green-800/40 to-green-900/40">
               <tr>
-                <th className="px-6 py-3 text-left font-semibold text-gray-700">
+                <th className="px-6 py-3 text-left font-semibold text-green-300">
                   Company
                 </th>
-                <th className="px-6 py-3 text-left font-semibold text-gray-700">
+                <th className="px-6 py-3 text-left font-semibold text-green-300">
                   Recipient
                 </th>
-                <th className="px-6 py-3 text-left font-semibold text-gray-700">
+                <th className="px-6 py-3 text-left font-semibold text-green-300">
                   Date Sent
                 </th>
-                <th className="px-6 py-3 text-left font-semibold text-gray-700">
+                <th className="px-6 py-3 text-left font-semibold text-green-300">
                   Status
                 </th>
               </tr>
             </thead>
-            <tbody className="bg-white divide-y divide-gray-100">
+            <tbody className="divide-y divide-gray-800">
               {history.length === 0 ? (
                 <tr>
                   <td
@@ -101,18 +101,21 @@ const HistoryPage = () => {
                 </tr>
               ) : (
                 history.map((app) => (
-                  <tr key={app._id} className="hover:bg-indigo-50 transition">
-                    <td className="px-6 py-4 whitespace-nowrap font-medium text-gray-900">
+                  <tr
+                    key={app._id}
+                    className="hover:bg-green-900/20 transition"
+                  >
+                    <td className="px-6 py-4 whitespace-nowrap font-medium text-green-200">
                       {app.companyName}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-gray-600">
+                    <td className="px-6 py-4 whitespace-nowrap text-gray-400">
                       {app.recipientEmail}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-gray-600">
+                    <td className="px-6 py-4 whitespace-nowrap text-gray-400">
                       {new Date(app.sentAt).toLocaleString()}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                     Sent Successfully ✅
+                      {renderStatus(app.status || 'Sent')}
                     </td>
                   </tr>
                 ))
